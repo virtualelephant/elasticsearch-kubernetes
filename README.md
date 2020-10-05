@@ -1,5 +1,5 @@
 # elasticsearch-kubernetes
-Deployment files for elasticsearch on Kubernetes
+Deployment files for Fluentd, Kibana and Elasticsearch on Kubernetes
 
 - elasticsearch_pv.yaml: Creates the persistent volume for Elasticsearch via NFS
 - elasticsearch_svc.yaml: Creates the headless service for Elasticsearch
@@ -13,3 +13,17 @@ Deployment files for elasticsearch on Kubernetes
 NOTES:
 - If using NFS, make sure the export for Elasticsearch has the 'no_root_squash' option set.
 - If using an external load balancer (like HAProxy), add a rule for the Kibana NodePort 30010.
+
+INSTRUCTIONS:
+Execute the following commands:
+
+- kubectl create -f elasticsearch_pv.yaml
+- kubectl create -f elasticsearch_svc.yaml
+- kubectl create -f elasticsearch_statefulset.yaml
+
+- kubectl create -f kibana_pv.yaml
+- kubectl create -f kibana_svc.yaml
+- kubectl create -f kibana_deployment.yaml
+
+- kubectl create -f fluentd_rbac.yaml
+- kubectl create -f fluentd_daemonset.yaml
