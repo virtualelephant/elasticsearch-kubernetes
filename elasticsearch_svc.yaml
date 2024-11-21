@@ -14,3 +14,6 @@ spec:
       name: rest
     - port: 9300
       name: inter-node
+    - name: metrics
+      port: 9114
+      protocol: TCP

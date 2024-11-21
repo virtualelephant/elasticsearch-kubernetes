@@ -11,6 +11,10 @@ spec:
       app: elasticsearch
   template:
     metadata:
+      annotations:
+        prometheus.io/path: /metrics
+        prometheus.io/port: '9114'
+        prometheus.io/scrape: 'true'
       labels:
         app: elasticsearch
     spec:
@@ -45,6 +49,14 @@ spec:
             value: "es-cluster-0,es-cluster-1,es-cluster-2"
           - name: ES_JAVA_OPTS
             value: "-Xms512m -Xmx512m"
+      - env:
+        - name: ELASTICSEARCH_URI
+          value: http://localhost:9200
+        image: quay.io/prometheuscommunity/elasticsearch-exporter:latest
+        name: prometheus-exporter
+        ports:
+        - containerPort: 9114
+          name: metrics
       initContainers:
       - name: fix-permissions
         image: busybox:1.28
@@ -73,7 +85,7 @@ spec:
         app: elasticsearch
     spec:
       accessModes: [ "ReadWriteOnce" ]
-      storageClassName: pv-nfs-elastic
+      storageClassName: nfs
       resources:
         requests:
           storage: 100Gi
