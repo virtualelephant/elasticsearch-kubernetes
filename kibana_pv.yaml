@@ -10,7 +10,7 @@ spec:
   accessModes:
     - ReadWriteMany
   persistentVolumeReclaimPolicy: Recycle
-  storageClassName: pv-nfs-kibana
+  storageClassName: nfs
   mountOptions:
     - hard
     - nfsvers=4.1
@@ -24,7 +24,7 @@ metadata:
   name: kibana
   namespace: kube-logging
 spec:
-  storageClassName: pv-nfs-kibana
+  storageClassName: nfs
   accessModes:
     - ReadWriteMany
   resources:
