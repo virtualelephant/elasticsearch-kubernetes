@@ -21,7 +21,9 @@ spec:
         volumeMounts:
         - mountPath: /etc/prometheus/
           name: prometheus-config-volume
+        - mountPath: /prometheus
+          name: prometheus-data
       volumes:
-      - configMap:
-          name: prometheus-config
-        name: prometheus-config-volume
+      - name: prometheus-data
+        persistentVolumeClaim:
+          claimName: prometheus-data
